@@ -1,0 +1,18 @@
+使用djangoadmin创建django工程
+创建工程：django-admin startproject test_platform
+启动服务：python test_platform/manage.py runserver
+根据django官方入门操作
+djangoMTV模型
+	web开发，一般的web框架：
+		mvc模式：提供了对HTML、CSS和JavaScript的完全控制
+			Model（模型） 表示应用程序核心（比如数据库记录表）
+			View（视图） 显示数据
+			Controller（控制器）处理输入（写入数据库记录）
+	django里面的模式
+		M=model
+		T=template模板=view
+		V=Controller
+操作记录
+    url里设置连接（导入正确）
+    setting里面INSTALLED_APPS增加对应应用
+    templates里增加对应view（参数化）
