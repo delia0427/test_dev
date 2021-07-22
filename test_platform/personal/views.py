@@ -40,5 +40,7 @@ def manage(request):
 def logout(request):
     """处理用户退出"""
     auth.logout(request)  # 自动清除session表里的sessionId
+
+
     return HttpResponseRedirect("index.html")  # 重定向到登录页
 

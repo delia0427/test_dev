@@ -16,3 +16,5 @@ djangoMTV模型
     url里设置连接（导入正确）
     setting里面INSTALLED_APPS增加对应应用
     templates里增加对应view（参数化）
+
+    delia 123456Aa
