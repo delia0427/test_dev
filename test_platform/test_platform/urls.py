@@ -15,9 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from api_fuction.user import say_hello
+from personal import views
 from django.http import HttpRequest as request
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('hello/', say_hello)
+    path('hello/', views.say_hello),
+    path('index/', views.index),
+    path('', views.index),  # 这样初始页面可以不用输入login
+    path('manage/', views.manage)
+
 ]
