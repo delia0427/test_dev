@@ -23,6 +23,8 @@ urlpatterns = [
     path('hello/', views.say_hello),
     path('index/', views.index),
     path('', views.index),  # 这样初始页面可以不用输入login
-    path('manage/', views.manage)
+    path('logout/', views.logout),
+    path('project/', views.project_manage),  # 项目管理
+    path('module/', views.module_manage)  # 模块管理
 
 ]

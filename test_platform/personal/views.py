@@ -1,5 +1,5 @@
 from django.http import HttpResponse, HttpResponseRedirect  # 重定向
-from django.shortcuts import render
+from django.shortcuts import render  # 返回页面
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required   # 需要登录可查看
 
@@ -14,8 +14,11 @@ def say_hello(request):
 def index(request):
     """登录"""
     # 获取前端输入
-    username = request.GET.get("username", "")
-    password = request.GET.get("password", "")
+    if request.method == "GET":
+        return render(request, "index.html")
+    else:
+        username = request.POST.get("username", "")
+        password = request.POST.get("password", "")
     if username == "" or password == "":
         return render(request, "index.html",{
             "error": "用户名或密码为空"
@@ -29,18 +32,37 @@ def index(request):
         })
     # 判断正确，跳转
     else:
-        auth.login(request, user)  # 记录用户的登录咋宏泰
-        HttpResponseRedirect("manage.html")  # 重定向到manage页面
+        auth.login(request, user)  # 记录用户的登录状态
+        # render(request, "project.html")
+        return HttpResponseRedirect("/project/")  # 重定向到manage页面
 
-@login_required()
-def manage(request):
-    """登录成功，但会manage视图"""
-    return render(request, "manage.html")
 
 def logout(request):
     """处理用户退出"""
     auth.logout(request)  # 自动清除session表里的sessionId
+    return HttpResponseRedirect("/index/")  # 重定向到登录页
 
 
-    return HttpResponseRedirect("index.html")  # 重定向到登录页
+@login_required()
+def project_manage(request):
+    """登录成功，默认项目管理页"""
+    return render(request, "project.html")
+
+
+@login_required()
+def module_manage(request):
+    """模块管理页面"""
+    return render(request, "module.html")
+
+#
+# @register.filter
+# def my_filter(v1, v2):
+#     return v1 * v2
+#
+#
+# @register.simple_tag
+# def my_tag1(v1, v2, v3):
+#     return v1 * v2 * v3
+
+
 

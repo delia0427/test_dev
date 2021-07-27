@@ -1,23 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<link>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <h1>hello,{{name}}</h1><br>
-    <link rel="stylesheet" type="text/css" herf="{% static}"css/bootstrap.min.css" %}"</link>
-
-    <script src = bootstrap.min.js></script>
-
- </head>
-<body>
-    <form>
-        <p>username:
-            <input type="text" name="username"  />
-        </p>
-        <p>password:
-            <input type="text" name="password" />
-        </p>
-        <input type="submit" value="Login">
-    </form>
-</body>
-</html>
+{% extends "base.html" %}
+{% block base %}
+<form class="form-signin" style="max-width: 300px"
+      action="/index/" method="post">
+    <h2 class="form-signin-heading">测试平台</h2>
+    <label for="inputUsername" class="sr-only">Email address</label>
+    <input type="text" id="inputUsername" class="form-control"
+           placeholder="username" required autofocus name="username">
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" id="inputPassword" class="form-control"
+           placeholder="Password" required name="password">
+    <div style="color:red">{{error}}</div>
+    {% csrf_token %}
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+</form>
+{% endblock %}
