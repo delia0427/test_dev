@@ -9,7 +9,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">接口测试平台</a>
+          <a class="navbar-brand" href="#">超级牛逼的平台</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -40,46 +40,51 @@
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h2 class="sub-header">项目列表</h2>
+          <!-- 项目列表 -->
+          {% if type == "list" %}
+          <h2 class="sub-header">项目列表
+            <button type="button"
+                    class="btn btn-sm btn-primary"
+                    style="float:right"
+                    onclick="location.href='/project/addproject'">新增按钮真厉害</button>
+          </h2>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>#</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
+                  <th>id</th>
+                  <th>名称</th>
+                  <th>描述</th>
+                  <th>状态</th>
+                  <th>创建时间</th>
                 </tr>
               </thead>
               <tbody>
+              {% for project in projects %}
                 <tr>
-                  <td>1,001</td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
-                  <td>dolor</td>
-                  <td>sit</td>
+                  <td>{{project.id}}</td>
+                  <td>{{project.name}}</td>
+                  <td>{{project.describe}}</td>
+                  <td>
+                    {% if project.status == True %}
+                      <span>开启</span>
+                    {% else %}
+                      <span>关闭</span>
+                    {% endif %}
+                  </td>
+                  <td>{{ project.create_time|date:"Y-m-d H:i:s" }}</td>
                 </tr>
-                <tr>
-                  <td>1,002</td>
-                  <td>amet</td>
-                  <td>consectetur</td>
-                  <td>adipiscing</td>
-                  <td>elit</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>Integer</td>
-                  <td>nec</td>
-                  <td>odio</td>
-                  <td>Praesent</td>
-                </tr>
+              {% endfor %}
               </tbody>
             </table>
             <form action="/logout/" method="post">
             {% csrf_token %}
             <input type="submit" value="logout"></form>
           </div>
+          {% endif %}
+          {% if type == "add" %}
+            <h1>这里就是添加的内容</h1>
+          {% endif %}
         </div>
       </div>
     </div>

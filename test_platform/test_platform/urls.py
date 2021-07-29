@@ -15,16 +15,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from personal import views
-from django.http import HttpRequest as request
+from personal.views import login_views
+from personal.views import project_views
+from personal.views import module_views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('hello/', views.say_hello),
-    path('index/', views.index),
-    path('', views.index),  # 这样初始页面可以不用输入login
-    path('logout/', views.logout),
-    path('project/', views.project_manage),  # 项目管理
-    path('module/', views.module_manage)  # 模块管理
+    path('hello/', login_views.say_hello),
+    path('index/', login_views.index),
+    path('', login_views.index),  # 这样初始页面可以不用输入login
+    path('logout/', login_views.logout),
+
+    # project 管理
+    path('project/', project_views.project_manage),  # 项目管理
+    path('project/addproject/', project_views.add_project),  # 添加项目页面
+
+    path('module/', module_views.module_manage)  # 模块管理
 
 ]

@@ -2,6 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect  # 重定向
 from django.shortcuts import render  # 返回页面
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required   # 需要登录可查看
+from personal.models.project import Project
 
 
 def say_hello(request):
@@ -43,16 +44,10 @@ def logout(request):
     return HttpResponseRedirect("/index/")  # 重定向到登录页
 
 
-@login_required()
-def project_manage(request):
-    """登录成功，默认项目管理页"""
-    return render(request, "project.html")
 
 
-@login_required()
-def module_manage(request):
-    """模块管理页面"""
-    return render(request, "module.html")
+
+
 
 #
 # @register.filter
