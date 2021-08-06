@@ -29,8 +29,14 @@ urlpatterns = [
 
     # project 管理
     path('project/', project_views.project_manage),  # 项目管理
-    path('project/addproject/', project_views.add_project),  # 添加项目页面
+    path('project/add_project/', project_views.add_project),  # 添加项目页面
+    path('project/edit_project/', project_views.edit_project),  # 编辑项目页面
+    path('project/del_project/', project_views.delete_project),  # 添加项目页面
 
-    path('module/', module_views.module_manage)  # 模块管理
+
+    path('module/', module_views.module_manage),  # 模块管理
+    path('project/add_module/', module_views.add_module),  # 添加项目页面
+    path('project/edit_module/', project_views.edit_project),  # 编辑项目页面
+    path('project/del_module/', project_views.delete_project),  # 添加项目页面
 
 ]

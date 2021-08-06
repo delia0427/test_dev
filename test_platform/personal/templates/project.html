@@ -83,8 +83,16 @@
           </div>
           {% endif %}
           {% if type == "add" %}
-            <h1>这里就是添加的内容</h1>
+            <h1>这里就是添加的内容--表单构造器</h1>
+            <h4 class="sub-header">添加项目</h4>
           {% endif %}
+
+<!--          编辑项目-->
+          {% if type == "add" %}
+            <h4 class="sub-header">编辑项目</h4>
+            <form action="/your-name/" method="post">{{form.as_p}}</form>
+          {% endif %}
+
         </div>
       </div>
     </div>
