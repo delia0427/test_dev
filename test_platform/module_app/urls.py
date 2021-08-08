@@ -13,23 +13,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include
-from personal.views import login_views
+from django.urls import path
+from module_app import views
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('hello/', login_views.say_hello),
-    path('index/', login_views.index),
-    path('', login_views.index),  # 这样初始页面可以不用输入login
-    path('logout/', login_views.logout),
 
-    # project 管理
-    path('project/', include('project_app.urls')),  # 项目管理
-
-    # 模块管理
-    path('module/', include('module_app.urls')),
-
+    path('', views.module_manage),  # 模块管理
+    path('add_module/', views.add_module),  # 添加项目页面
+    path('edit_module/<int:mid>/', views.edit_module),  # 编辑项目页面
+    path('delete_module/<int:mid>/', views.delete_module),  # 添加项目页面
 
 ]

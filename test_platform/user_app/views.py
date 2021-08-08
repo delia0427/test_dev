@@ -28,7 +28,7 @@ def index(request):
     # 判断错误，返回错误信息
     if user is None:
         return render(request, "index.html", {
-            "error": "yyonghum huo mima 错误"
+            "error":"yyonghum huo mima 错误"
         })
     # 判断正确，跳转
     else:
@@ -41,22 +41,5 @@ def logout(request):
     """处理用户退出"""
     auth.logout(request)  # 自动清除session表里的sessionId
     return HttpResponseRedirect("/index/")  # 重定向到登录页
-
-
-
-
-
-
-
-#
-# @register.filter
-# def my_filter(v1, v2):
-#     return v1 * v2
-#
-#
-# @register.simple_tag
-# def my_tag1(v1, v2, v3):
-#     return v1 * v2 * v3
-
 
 
