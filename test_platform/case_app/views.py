@@ -29,8 +29,7 @@ def debug(request):
         try:
             header = json.loads(header_temp)
         except json.decoder.JSONDecodeError:
-            return JsonResponse({"result": "头        header = json.loads(header_temp)
-                                 类型错误"})
+            return JsonResponse({"result": "头类型错误"})
         if method == "get":
             if header == "":
                 r = request.get(url, params=payload)
