@@ -21,7 +21,8 @@ urlpatterns = [
 
     # 用例 管理
     path('', views.case_manage),  # 用例管理
-    path('debug/', views.debug)
+    path('debug', views.case_debug),
+    path('assert', views.case_assert)
 
 
 ]

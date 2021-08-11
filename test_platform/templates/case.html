@@ -43,7 +43,46 @@
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h2 class="sub-header">接口调式</h2>
-           <form action="/logout/" method="post">
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">* URL</span>
+                <input type="text" id="req_url"  class="form-control" placeholder="url" aria-describedby="basic-addon1">
+            </div>
+            <div style="padding-top: 10px;">* 请求方式
+                <label class="radio-inline">
+                    <input type="radio" name="req_method" value="get" checked> get
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="req_method" value="post"> post
+                </label>
+            </div>
+            <div class="input-group" style="padding-top: 10px;" >
+                <span class="input-group-addon" id="basic-addon1">header</span>
+                <input type="text" id="header" class="form-control" placeholder="header" aria-describedby="basic-addon1">
+            </div>
+            <div style="padding-top: 10px;">* 参数类型
+                <label class="radio-inline">
+                    <input type="radio" name="par_type" id="optionsRadios5" value="form-data" checked> form-data
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="par_type" id="optionsRadios6"  value="JSON"> JSON
+                </label>
+            </div>
+            <div class="input-group" style="padding-top: 10px;" >
+                <span class="input-group-addon" id="basic-addon1"> 参数</span>
+                <input type="text" id="parameter" class="form-control" placeholder='{"key1":"value1"}' aria-describedby="basic-addon1">
+            </div>
+            <p style="padding-top: 10px;">
+                {% csrf_token %}
+                <button name="send" type="button" class="btn btn-primary btn-lg btn-block" onclick="sendFun()">发送</button>
+            </p>
+            <form role="form">
+                <div class="form-group">
+                  <label for="name">返回结果</label>
+                  <textarea class="form-control" rows="3"></textarea>
+                </div>
+            </form>
+
+           <form style="padding-top: 20px;" action="/logout/" method="post">
                 {% csrf_token %}
                 <input type="submit" value="logout"></form>
         </div>
@@ -51,9 +90,11 @@
 
 </div>
 
-<script src=""></script>
+
 <script type="text/javascript">
-    function jsFun(){
+
+    // 发送方法
+    function sendFun(){
         var url = $("#req_url").val();
         var method = $("input[name='req_method']:checked").val();
         var header = $("#header").val();
@@ -61,29 +102,53 @@
         var parameter = $("#parameter").val();
 
         if (url == ""){
-            window.alery("URL不能为空");
+            window.alert("URL不能为空");
             return; }
 
         $.post("/case/debug",
-          {
+        {
             url: url,
             method: method,
             header: header,
             type: type,
             parameter: parameter,
-          },
-          function(data,status){
-            alert("Data: " + data + "\nStatus: " + status);
-            console.log("return data:", data.result);
-            document.querySelector("#result").value = result.data;
-          });
-
+        },
+        function(data,status){
+        alert("Data: " + data + "\nStatus: " + status);
+        console.log("return data:", data.result);
+        document.querySelector("#result").value = data.result;   // 重写进入结果框
+        });
     }
 
+    
+
+    // 断言方法
+    function assertFun(){
+        var result_text = $("#result").val();
+        var assert_text = $("#assert").val();
+        var assert_type = $("#assert_type").val();
+        console.log("得到的结果", result_text);
+        console.log("断言的结果", assert_text);
+
+        if (result_text_text === "" || assert_text === ""){
+            window.alert("要断言的文本不能为空");
+            return;
+        }
+        $.post("/case/assert",
+        {
+        result: result_text,
+        assert: assert_text,
+        assert_type: assert_type
+        },
+        function(data,status){
+        alert("Data: " + data + "\nStatus: " + status);
+        console.log("return data:", data.result);
+        // document.querySelector("#result").value = result.data;
+        });
+    }
+
+    
 </script>
 
 
 {% endblock %}
-
-
-

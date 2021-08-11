@@ -11,9 +11,9 @@ def case_manage(request):
     return render(request, "case.html")
 
 
-@login_required()
-def debug(request):
-    """debug接口"""
+# @login_required()
+def case_debug(request):
+    """测试用调试"""
     if request.method == "POST":
         url = request.POST.get("url", "")
         method = request.POST.get("method", "")
@@ -56,4 +56,26 @@ def debug(request):
     else:
         return JsonResponse({"result": "请求方法错误"})
 
+
+@login_required()
+def case_assert(request):
+    """测试用例的断言"""
+    if request.method == "POST":
+        result_text = request.POST.get("result", "")
+        assert_text = request.POST.get("assert", "")
+        assert_type = request.POST.get("assert_type", "")
+        if result_text == "" or assert_text == "":
+            return JsonResponse({"result": "断言文本不能为空"})
+        if assert_type == "contains":
+            if assert_text not in result_text:
+                return JsonResponse({"result": "断言失败"})
+            else:
+                return JsonResponse({"result": "断言成功"})
+        if assert_type == "equals":
+            if assert_text == result_text:
+                return JsonResponse({"result": "断言成功"})
+            else:
+                return JsonResponse({"result": "断言失败"})     
+    else:
+        return JsonResponse({"result": "请求方法错误"})
 
