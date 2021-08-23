@@ -18,3 +18,24 @@ djangoMTV模型
     templates里增加对应view（参数化）
 
     delia 123456Aa
+
+    index manage等页面继承base页面
+
+MTV
+ORM:对象关系映射
+再编程语言里面夹杂了SQL语句
+    python----pymsql----mysql
+    django----ORM---mysql---Mysql
+
+ORM ：像操作对象一样的操作数据库
+eg：
+class Project(models.Model):  # 相当于创建一张表
+    name = models.CharField(max_length=50, null=False)
+    describe = models.TextField(default="")
+    status = models.BooleanField(default=1)
+    create_time = models.DateTimeField(auto_now_add=True)
+
+django下面生成表的命令
+
+使用gjango manage shell 操作数据库
+

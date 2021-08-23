@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required  # 需要登录可查�
 from django.shortcuts import render  # 返回页面
 from module_app.models import Module
 from module_app.forms import ModuleForm
-from django.http import HttpResponseRedirect  # 重定向
+from django.http import HttpResponseRedirect, JsonResponse  # 重定向
 
 
 @login_required()
@@ -49,10 +49,12 @@ def edit_module(request, mid):
             name = form.cleaned_data["name"]
             describe = form.cleaned_data["describe"]
             status = form.cleaned_data["status"]
+            project = form.cleaned_data["project"]
             p = Module.objects.get(id=mid)
             p.name = name
             p.describe = describe
             p.status = status
+            p.project = project
             p.save()
         return HttpResponseRedirect("/module/")
 
@@ -70,3 +72,24 @@ def delete_module(request, mid):
         return HttpResponseRedirect("/module/")
     else:
         return HttpResponseRedirect("/module/")
+
+
+def module_list(request):
+    """
+    接口：根据项目id，返回对应的模块列表
+    """
+    if request.method == "POST":
+        pid = request.POST.get("pid", "")
+        if pid == "":
+            return JsonResponse({"status":10102,"message": "项目id不能为空"})
+        modules = Module.objects.filter(project=pid)
+        modules_list = []
+        for mod in modules:
+            module_dict = {
+                "id":  mod.id,
+                "name": mod.name
+            }
+            modules_list.append(module_dict)
+        return JsonResponse({"status": 10200, "message": "请求成功", "data": modules_list})
+    else:
+        return JsonResponse({"status": 10101, "message": "请求方法错误"})

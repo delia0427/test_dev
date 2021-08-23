@@ -21,8 +21,16 @@ urlpatterns = [
 
     # 用例 管理
     path('', views.case_manage),  # 用例管理
-    path('debug', views.case_debug),
-    path('assert', views.case_assert)
+    path('debug/', views.case_debug),
+    path('assert/', views.case_assert),
+    path('add_case/', views.add_case),
+    path('edit_case/<int:cid>/', views.edit_case),
+    path('delete_case/<int:cid>/', views.delete_case),
+    path('get_case_info', views.get_case_info),
+    path('save/', views.case_save),
+    path('get_select_data', views.get_select_data)
+
+
 
 
 ]

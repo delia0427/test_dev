@@ -24,4 +24,10 @@ urlpatterns = [
     path('edit_module/<int:mid>/', views.edit_module),  # 编辑项目页面
     path('delete_module/<int:mid>/', views.delete_module),  # 添加项目页面
 
+    # 接口
+    path('module_list', views.module_list),  # 根据项目id查看模块列表
+
+
+
+
 ]

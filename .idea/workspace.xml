@@ -2,10 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b48df98f-fd9a-4bd5-a94d-b1063d85fc6e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/test_dev.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/test_dev.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_platform/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_platform/manage.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test_platform/personal/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/test_platform/personal/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test_platform/personal/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_platform/personal/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_platform/test_platform/asgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_platform/test_platform/asgi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_platform/test_platform/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_platform/test_platform/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_platform/test_platform/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_platform/test_platform/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_platform/test_platform/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_platform/test_platform/wsgi.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/新建文本文档.txt" beforeDir="false" afterPath="$PROJECT_DIR$/新建文本文档.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -48,7 +60,7 @@
     <option name="height" value="720" />
   </component>
   <component name="ProjectId" id="1vYbnZUA09tuE6FCP3lzXTXAQY7" />
-  <component name="ProjectLevelVcsManager">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="ProjectView">
@@ -110,7 +122,9 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/test_platform/static/css" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/test_platform" />
     <property name="settings.editor.selected.configurable" value="pyconsole" />
   </component>
   <component name="RecentsManager">
@@ -118,6 +132,10 @@
       <recent name="E:\CodingProjects\test_dev\test_platform\static\css" />
       <recent name="E:\CodingProjects\test_dev\test_platform\static\js" />
       <recent name="E:\CodingProjects\test_dev\test_platform\personal\templates" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\CodingProjects\test_dev\test_platform\personal\models" />
+      <recent name="E:\CodingProjects\test_dev\test_platform\personal" />
     </key>
   </component>
   <component name="RunManager" selected="Python.test">
@@ -241,6 +259,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/test.py">

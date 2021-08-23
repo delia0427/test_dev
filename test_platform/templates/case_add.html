@@ -1,0 +1,257 @@
+{% extends "base.html" %}
+{% block base %}
+{% csrf_token %}
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">超级牛逼的平台</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Help</a></li>
+            </ul>
+            <form class="navbar-form navbar-right">
+                <input type="text" class="form-control" placeholder="Search...">
+            </form>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li><a href="#" class="glyphicon glyphicon-th-large"> 项目管理 <span class="sr-only">(current)</span></a>
+                </li>
+                <li><a href="/module/" class="glyphicon glyphicon-file"> 模块管理</a></li>
+                <li class="active"><a href="#">用例管理</a></li>
+                <li><a href="#">任务管理</a></li>
+            </ul>
+            <ul class="nav nav-sidebar">
+                <li><a href="">mock Server</a></li>
+                <li><a href="">测试工具</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h2 class="sub-header">接口调式</h2>
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">* URL</span>
+                <input type="text" id="req_url"  class="form-control" placeholder="url" aria-describedby="basic-addon1">
+            </div>
+            <div style="padding-top: 10px;">* 请求方式
+                <label class="radio-inline">
+                    <input type="radio" name="req_method" value="get" checked> get
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="req_method" value="post"> post
+                </label>
+            </div>
+            <div class="input-group" style="padding-top: 10px;" >
+                <span class="input-group-addon" >header</span>
+                <input type="text" id="header" class="form-control" placeholder="header" aria-describedby="basic-addon1">
+            </div>
+            <div style="padding-top: 10px;">* 参数类型
+                <label class="radio-inline">
+                    <input type="radio" name="par_type" id="optionsRadios5" value="form-data" checked> form-data
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="par_type" id="optionsRadios6"  value="JSON"> JSON
+                </label>
+            </div>
+            <div class="input-group" style="padding-top: 10px;" >
+                <span class="input-group-addon" > 参数</span>
+                <input type="text" id="parameter" class="form-control" placeholder='{"key1":"value1"}' aria-describedby="basic-addon1">
+            </div>
+            <p style="padding-top: 10px;">
+                <button name="send" type="button" class="btn btn-primary btn-lg btn-block" onclick="sendFun()">发送</button>
+            </p>
+            <form role="form">
+                <div class="form-group">
+                  <label>返回结果</label>
+                  <textarea id="result" class="form-control" rows="5"></textarea>
+                </div>
+            </form>
+            <p style="padding-top: 10px;">
+                <button name="send" type="button" style="float:right; width: auto;"
+                        class="btn btn-primary btn-lg btn-block" onclick="assertFun()">断言</button>
+            <div style="padding-top: 10px;">* 断言类型
+                <label class="radio-inline">
+                    <input type="radio" name="assert_type" id="optionsRadios1" value="contain" checked> 包含
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="assert_type" id="optionsRadios2"  value="equal"> 相等
+                </label>
+            </div>
+            </p>
+            <form style="padding-top: 10px;" role="form">
+                <div class="form-group">
+                    <textarea id="assert" class="form-control" rows="3"></textarea>
+                </div>
+            </form>
+            <form role="form">
+                <div class="form-group">
+                    <label>断言结果</label>
+                    <textarea id="assert_result" class="form-control" rows="1"></textarea>
+                </div>
+            </form>
+            
+<!--            <div style="padding-top: 10x;">-->
+<!--                <label>项目: </label>-->
+<!--                <select class="selectpicker" id="project_name">-->
+<!--                </select>-->
+<!--                <label style="padding-left: 50px;">模块: </label>-->
+<!--                <select class="selectpicker" id="module_name">-->
+<!--&lt;!&ndash;                    <option>Mustard</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <option>Ketchup</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <option>Barbecue</option>&ndash;&gt;-->
+<!--                </select>-->
+<!--            </div>-->
+            <div style="margin-top: 10px">
+                <label style="float:left">项目：</label>
+                <select class="form-control select2-single" id="selectProject" style="width: 180px"></select>
+                <label style="float:left">模块：</label>
+                <select class="form-control select2-single" id="selectModule" style="width: 180px"></select>
+            </div>
+                <div class="input-group" style="padding-top: 10px;">
+                <span class="input-group-addon" >* 用例名称 </span>
+                <input type="text" id="case_name"  class="form-control" placeholder="case_name" aria-describedby="basic-addon1">
+            </div>
+
+            <p style="padding-top: 10px;">
+                {% csrf_token %}
+                <button name="send" type="button" class="btn btn-primary btn-lg btn-block" onclick="saveFun()">保存</button>
+            </p>
+
+           <form style="padding-top: 20px;" action="/logout/" method="post">
+                {% csrf_token %}
+                <input type="submit" value="logout"></form>
+        </div>
+    </div>
+
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script type="text/javascript">
+
+    // 选择框初始化
+    SelectInit();
+
+<!--    // 调用项目的初始化-->
+<!--    ProjectInit("project_name");-->
+
+<!--    //监听项目列表的变化-->
+<!--    $("#project_name").change(function() {-->
+<!--        let selected = $(this).children('option:selected').val();-->
+<!--        ModuleInit("module_name", selected);-->
+<!--    });-->
+
+    // 发送方法
+    function sendFun(){
+        var url = $("#req_url").val();
+        var method = $("input[name='req_method']:checked").val();
+        var header = $("#header").val();
+        var type = $("input[name='par_type']:checked").val();
+        var parameter = $("#parameter").val();
+        if (url == ""){
+            window.alert("URL不能为空");
+            return; }
+
+        $.post("/case/debug/",
+        {
+            url: url,
+            method: method,
+            header: header,
+            type: type,
+            parameter: parameter,
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+
+        },
+        function(data,status){
+        document.querySelector("#result").value = data.result;   // 重写进入结果框
+        });
+    }
+
+    
+
+    // 断言方法
+    function assertFun(){
+        var result_text = $("#result").val();
+        var assert_text = $("#assert").val();
+        var assert_type = $("input[name='assert_type']:checked").val();
+
+        if (result_text === "" || assert_text === ""){
+            window.alert("要断言的文本不能为空");
+            return;
+        }
+        $.post("/case/assert/",
+        {
+        result: result_text,
+        assert: assert_text,
+        assert_type: assert_type,
+        csrfmiddlewaretoken: '{{ csrf_token }}'
+
+        },
+        function(data,status){
+// <!--        alert("Data: " + data + "\nStatus: " + status);-->
+// <!--        console.log("return data:", data.result);-->
+        document.querySelector("#assert_result").value = data.result;
+        });
+    }
+
+    // 保存用例
+    function saveFun(){
+    let url = $("#req_url").val();
+    let req_method = $("input[name='req_method']:checked").val();
+    let header = $("#header").val();
+    let par_type = $("input[name='par_type']:checked").val();
+    let parameter = $("#parameter").val();
+    let assert_type = $("input[name='assert_type']:checked").val();
+    let assert_result = $("#assert_result").val();
+    let project_id = $('select[id="project_name"]').val();
+    let module_id = $('select[id="selectModule"]').val();
+    let case_name = $("#case_name").val();
+    log.console("case_nameL:::::", case_name);
+    let result_text = $("#result").val();
+
+
+    $.post("/case/save/",
+    {
+    url: url,
+    req_method: req_method,
+    header: header,
+    module_id : module_id,
+    par_type : par_type,
+    parameter : parameter,
+    assert_type : assert_type,
+    assert_result : assert_result,
+    project_id : project_id,
+    case_name : case_name,
+    result_text : result_text,
+    csrfmiddlewaretoken: '{{ csrf_token }}'
+
+    },
+    function(data){
+        if (data.status === 10200) {
+            window.alert(data.message);}
+        else {
+                window.alert(data.message);
+                }
+    });
+    }
+
+    
+</script>
+
+
+{% endblock %}
