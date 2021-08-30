@@ -228,3 +228,6 @@ def get_select_data(request):
     else:
         return JsonResponse({"status": 10100, "message": "请求方法错误"})
 
+
+
+

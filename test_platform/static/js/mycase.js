@@ -92,7 +92,6 @@ var TestCaseInit = function() {
 
         },
         function(resp,status){
-        console.log("返回的结果:", resp);
         document.querySelector("#req_url").value = resp.result.url;   // 重写进入结果框
         document.querySelector('input[value='+resp.result.method+']').setAttribute("checked", "");
         document.querySelector("#header").value = resp.result.header;   // 重写进入结果框

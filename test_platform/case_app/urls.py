@@ -28,7 +28,8 @@ urlpatterns = [
     path('delete_case/<int:cid>/', views.delete_case),
     path('get_case_info', views.get_case_info),
     path('save/', views.case_save),
-    path('get_select_data', views.get_select_data)
+    path('get_select_data', views.get_select_data),
+
 
 
 
