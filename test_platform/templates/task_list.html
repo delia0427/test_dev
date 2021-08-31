@@ -54,31 +54,25 @@
                     <tr>
                         <th>id</th>
                         <th>名称</th>
-                        <th>接口</th>
-                        <th>请求方法</th>
-                        <th>所属模块</th>
+                        <th>状态</th>
                         <th>创建时间</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% for case in cases %}
+                    {% for task in tasks %}
                     <tr>
-                        <td>{{case.id}}</td>
-                        <td>{{case.name}}</td>
-                        <td>{{case.url}}</td>
-                        <td>
-                            {% if case.method == 1 %}
-                            <span>get</span>
-                            {% else %}
-                            <span>post</span>
-                            {% endif %}
-                        </td>
-                        <td>{{case.module}}</td>
-                        <td>{{ case.create_time|date:"Y-m-d H:i:s" }}</td>
-                        <td> <a href="/case/edit_case/{{ case.id }}/">
-                            <i class="glyphicon glyphicon-pencil"></i></a></td>
-                        <td> <a href="/case/delete_case/{{ case.id }}/">
-                            <i class="glyphicon glyphicon-trash"></i></a></td>
+                        <td>{{task.id}}</td>
+                        <td>{{task.name}}</td>
+                        <td>{{task.status}}</td>
+                        <td>{{ task.create_time|date:"Y-m-d H:i:s" }}</td>
+                        <td> <a href="#" onClick="RunTask('{{task.id}}')">
+                            <i class="glyphicon glyphicon-play"></i>执行</a></td>
+                        <td> <a href="/task/edit_task/{{ task.id }}/">
+                            <i class="glyphicon glyphicon-pencil"></i>编辑</a></td>
+                        <td> <a href="/task/delete_task/{{ task.id }}/">
+                            <i class="glyphicon glyphicon-trash"></i>删除</a></td>
+                        <td> <a href="/task/task_result_list/{{ task.id }}/">
+                            <i class="glyphicon glyphicon-list-alt"></i>结果</a></td>
                     </tr>
                     {% endfor %}
                     </tbody>
@@ -95,8 +89,15 @@
             {% block taskAdd %}
 <!--                其他页面可以继承这个页面-->
             {% endblock %}
-
             {% endif %}
+
+            {% if type == "edit" %}
+            {% block taskEdit %}
+            <!--                其他页面可以继承这个页面-->
+            {% endblock %}
+            {% endif %}
+
+
 
         </div>
     </div>

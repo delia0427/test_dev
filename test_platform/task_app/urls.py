@@ -21,6 +21,9 @@ urlpatterns = [
 
     path('', views.task_manage),  # 任务管理
     path('add_task/', views.add_task),  # 增加任务
+    path('save_task', views.save_task),  # 保存任务
+    path('edit_task/<int:tid>/', views.edit_task),
+    path('delete_task/<int:tid>/', views.delete_task),
     path('get_case_tree', views.get_case_tree)   # 获取项目模块用例的树形结构
 
 

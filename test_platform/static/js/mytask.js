@@ -19,6 +19,7 @@ var setting = {
             enable: true
         }
     };
+
 var zNodes =[
 //                {id:4, pId:0, name:"大数据量 演示", open:false},
 //                {id:401, pId:4, name:"一次性加载大数据量"},
@@ -33,8 +34,8 @@ $(document).ready(function(){
    zTreeObj.expandAll(false);   // 全部展开（true）/折叠（false）
    })
 });
-
-
-
-
 }
+
+
+
+
