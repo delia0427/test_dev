@@ -38,7 +38,7 @@ def save_task(request):
 
 
 def get_case_tree(request):
-    """保存任务"""
+    """获取任务树"""
     project_list = Project.objects.all()
     data_list = []
     for project in project_list:
@@ -65,10 +65,11 @@ def get_case_tree(request):
             return JsonResponse({"status": 10100, "message": "renwu id buneng weikong!"})
         task = Task.objects.get(id=tid)
         caseList = json.loads(task.cases)  # 将数据库中字符串转化成list
-        task_data = { "name": task.name, "desc": task.desc}
-        # 处理数据
-
-        task_data["data"] = data_list
+        for data in data_list:
+            for case in caseList:
+                if data["id"] == case:
+                    data["checked"] = True
+        task_data = {"name": task.name, "desc": task.desc, "data": data_list }
         return JsonResponse({"status": 10200, "message": "success", "data": task_data})
 
 
