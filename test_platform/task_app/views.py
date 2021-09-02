@@ -29,10 +29,20 @@ def save_task(request):
         name = request.POST.get("name", "")
         desc = request.POST.get("desc", "")
         cases = request.POST.get("cases", "")
+        tid = request.POST.get("tid", "")
         if name == "" or cases == "":
             return JsonResponse({"status": 10102, "message": "名称或用例参数不能为空"})
-        Task.objects.create(name=name, desc=desc, cases=cases)
-        return JsonResponse({"status": 10200, "message": "success"})
+        if tid:  # 有tid，保存
+            task = Task.objects.get(id=tid)
+            task.name = name
+            task.desc = desc
+            task.cases = cases
+            task.save()
+            return JsonResponse({"status": 10200, "message": "保存成功"})
+        else:  # 没有tid，新增
+            Task.objects.create(name=name, desc=desc, cases=cases)
+            return JsonResponse({"status": 10200, "message": "新建成功"})
+
     else:
         return JsonResponse({"status": 10100, "message": "请求方法错误"})
 
@@ -64,12 +74,13 @@ def get_case_tree(request):
         if tid == "":
             return JsonResponse({"status": 10100, "message": "renwu id buneng weikong!"})
         task = Task.objects.get(id=tid)
-        caseList = json.loads(task.cases)  # 将数据库中字符串转化成list
+        caselist = json.loads(task.cases)  # 将数据库中字符串转化成list
         for data in data_list:
-            for case in caseList:
-                if data["id"] == case:
-                    data["checked"] = True
-        task_data = {"name": task.name, "desc": task.desc, "data": data_list }
+            if data["id"] in caselist:
+                data["checked"] = True
+            else:
+                data["checked"] = False
+        task_data = {"name": task.name, "desc": task.desc, "data": data_list}
         return JsonResponse({"status": 10200, "message": "success", "data": task_data})
 
 

@@ -58,12 +58,15 @@ $(document).ready(function(){
 
 
    $.post("/task/get_case_tree",
-   {tid : tid,csrfmiddlewaretoken: '{{ csrf_token }}'
+   {tid : tid,
+   csrfmiddlewaretoken: '{{ csrf_token }}'
    },
    function(resp,status){
-   var zNodes = resp.data;
+   var zNodes = resp.data.data;
    zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);   // 默认自动执行
    zTreeObj.expandAll(false);   // 全部展开（true）/折叠（false）
+   document.querySelector("#name").value = resp.data.name;   // 重写进入结果框
+   document.querySelector("#description").value = resp.data.desc;   // 重写进入结果框
    })
 });
 }
@@ -73,6 +76,8 @@ caseTreeInit()
 
 //保存用例
 function saveTask() {
+    var url = document.location;   // 获取url
+    var tid = url.pathname.split("/")[3];  // 从url获取用例idvalue
 
     let name = $("#name").val();
     let desc = $("#description").val();
@@ -98,11 +103,12 @@ function saveTask() {
         name: name,
         desc: desc,
         cases: caseStr,
-        csrfmiddlewaretoken: '{{ csrf_token }}'
+        csrfmiddlewaretoken: '{{ csrf_token }}',
+        tid : tid
         },
     function (resp){
         if(resp.status==10200){
-            window.alert("创建任务成功！");
+            window.alert("保存成功！");
         }
     }
     )

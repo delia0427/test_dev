@@ -6,14 +6,25 @@ import json
 from case_app.models import Case
 from module_app.models import Module
 from project_app.models import Project
-from django.core.paginator import  Paginator
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
 @login_required()
 def case_manage(request):
     """用例管理页"""
     case_list = Case.objects.all()
-    return render(request, "case_list.html", {"cases": case_list})
+    p = Paginator(case_list, 5)
+
+    page = request.GET.get('page')
+    try:
+        contacts = p.page(page)
+    except PageNotAnInteger:
+        # 如果页数不是整形，取第一页
+        contacts = p.page(1)
+    except EmptyPage:
+        # 页数超出查询范围，取最后一页
+        contacts = p.page(p.num_pages)
+    return render(request, "case_list.html", {"cases": case_list, "page": contacts})
 
 
 @login_required()
